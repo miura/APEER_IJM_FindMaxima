@@ -1,6 +1,7 @@
 /*
-  ImageJ Script to open sequences individual images   and safe these as a corresponding TIFF-Stack 
+  ImageJ macro for segmenting image stack using Find Maxima command 
   using virtual stacks to conserver RAM   so in theory even large number if images files --> stacks should work
+  based on example generate_stack.ijm
  */
 
 // General global vars

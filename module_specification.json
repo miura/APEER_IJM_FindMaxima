@@ -1,10 +1,14 @@
 {
     "spec": {
         "inputs": {
-            "input_files": {
+            "input_file": {
                 "type:list[file]": {}
             },
             "prefix": {
+                "type:string": {},
+                "default": "no-filter"
+            },
+            "prominence": {
                 "type:string": {},
                 "default": "no-filter"
             },

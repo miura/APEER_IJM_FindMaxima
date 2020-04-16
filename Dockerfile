@@ -1,7 +1,7 @@
 # czsip/fiji with additional xvfb support
 # Author: Robert Kirmse
 # Version: 0.1
-
+# modified: Kota Miura
 
 # Pull base CZSIP/Fiji.
 # FROM czsip/fiji_linux64_baseimage:latest
@@ -25,7 +25,7 @@ RUN apt-get install -y libxrender1 libxtst6 libxi6
                            
 # Install additional Fiji Plugins
 COPY ./CallLog.class /Fiji.app/plugins
-COPY ./generate_stack.ijm /
+COPY ./*.ijm /
 COPY ./JSON_Read.js /
 COPY ./start.sh /
 COPY ./font.conf /etc/fonts/fonts.conf

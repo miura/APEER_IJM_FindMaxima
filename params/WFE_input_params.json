@@ -1,12 +1,8 @@
 {
     "WFE_output_params_file": "wfe_module_params_2_2.json",
     "input_files": [
-        "/input/flybrainG0000.tif",
-        "/input/flybrainG0001.tif",
-        "/input/flybrainG0002.tif",
-        "/input/flybrainG0003.tif",
-        "/input/flybrainG0004.tif"
+        "/input/TissueMovie1_1-2.tif"
     ],
     "prefix": ".tif",
-    "name": "test1"
+    "name": "findmaxima_segmented"
 }

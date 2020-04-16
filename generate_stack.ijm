@@ -61,6 +61,8 @@ function main() {
 	call("CallLog.shout", "DONE! " + currentTime());
 	run("Close All");
 	call("CallLog.shout", "Closed");
+	shout("test print");
+	print( "test macro print command" );
 	eval("script", "System.exit(0);");
 }
 
@@ -136,4 +138,9 @@ function jsonOut() {
      timeString = timeString+second;
 
      return timeString;
+} 
+
+function shout( out ){
+	sc = "java.lang.System.out.println( '" + out + "' )";
+	eval("js", sc);
 } 

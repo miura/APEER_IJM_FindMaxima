@@ -1,8 +1,10 @@
 {
     "WFE_output_params_file": "wfe_module_params_2_2.json",
     "input_files": [
-        "/input/TissueMovie1_1-2.tif"
+        "/input/TissueMovie1_1-6.tif"
     ],
     "prefix": ".tif",
+    "para_GaussSigma": "1.5",
+    "para_Prominence": "6",
     "name": "findmaxima_segmented"
 }

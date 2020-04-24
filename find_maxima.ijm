@@ -42,6 +42,10 @@ INPUTSTACK = runMacro(JSON_READER, "settings.input_files[0]");
 PREFIX = runMacro(JSON_READER, "settings.prefix");
 STACKNAME = runMacro(JSON_READER, "settings.name");
 WFEOUTPUT = runMacro(JSON_READER, "settings.WFE_output_params_file");
+PARA_PROMINENCE = runMacro(JSON_READER, "settings.para_Prominence");
+PARA_PROMINENCE = parseFloat( PARA_PROMINENCE );
+PARA_GAUSS_SIGMA = runMacro(JSON_READER, "settings.para_GaussSigma");
+PARA_GAUSS_SIGMA = parseFloat( PARA_GAUSS_SIGMA );
 
 // Getting input file path from WFE input_files
 path_substring = lastIndexOf(INPUTFILES, "/");
@@ -58,8 +62,8 @@ function main() {
 
  	importData();
 	// Parameters
-	GaussianBlurRad = 1.5;	// Gaussian filter radius
-	NoiseTol = 7.0;		
+	GaussianBlurRad = PARA_GAUSS_SIGMA;//1.5;	// Gaussian filter radius
+	NoiseTol = PARA_PROMINENCE;//7.0;		
 	run("Set Scale...", "distance=0 known=0 pixel=1 unit=pixel global");
 	run("Set Measurements...", "  mean centroid median redirect=None decimal=2");
 	InitialStackID = getImageID();

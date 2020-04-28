@@ -38,4 +38,4 @@ ENV DISPLAY :99
 ENV PATH $PATH:/Fiji.app/
 
 # Entrypoint for Fiji script has to be added below!
-#ENTRYPOINT ["sh","/start.sh"]
+ENTRYPOINT ["sh","/start.sh"]

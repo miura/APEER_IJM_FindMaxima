@@ -37,19 +37,19 @@ if (!File.exists(JSON_READER)) {
 call("CallLog.shout", "Reading JSON Parameters");
 
 // Get WFE Json values as global vars
-INPUTFILES = runMacro(JSON_READER, "settings.input_files[0]");
+/*INPUTFILES = runMacro(JSON_READER, "settings.input_files[0]");*/
 INPUTSTACK = runMacro(JSON_READER, "settings.input_files[0]");
-PREFIX = runMacro(JSON_READER, "settings.prefix");
-STACKNAME = runMacro(JSON_READER, "settings.name");
+PREFIX = ".tif"//runMacro(JSON_READER, "settings.prefix");
+STACKNAME = runMacro(JSON_READER, "settings.output_filename");
 WFEOUTPUT = runMacro(JSON_READER, "settings.WFE_output_params_file");
-PARA_PROMINENCE = runMacro(JSON_READER, "settings.para_Prominence");
+PARA_PROMINENCE = runMacro(JSON_READER, "settings.prominence");
 PARA_PROMINENCE = parseFloat( PARA_PROMINENCE );
-PARA_GAUSS_SIGMA = runMacro(JSON_READER, "settings.para_GaussSigma");
+PARA_GAUSS_SIGMA = runMacro(JSON_READER, "settings.gaussian_filter_sigma");
 PARA_GAUSS_SIGMA = parseFloat( PARA_GAUSS_SIGMA );
 
 // Getting input file path from WFE input_files
-path_substring = lastIndexOf(INPUTFILES, "/");
-IMAGEDIR_WFE = substring(INPUTFILES, 0, path_substring+1);
+path_substring = lastIndexOf(INPUTSTACK, "/");
+IMAGEDIR_WFE = substring(INPUTSTACK, 0, path_substring+1);
 
 main();
 

@@ -1,41 +1,75 @@
 {
     "spec": {
         "inputs": {
-            "input_file": {
-                "type:list[file]": {}
+            "input_files": {
+                "type:list[file]": {
+                    "format": [
+                        "tiff"
+                    ]
+                }
             },
-            "prefix": {
-                "type:string": {},
-                "default": "no-filter"
+            "gaussian_filter_sigma": {
+                "type:number": {
+                    "lower_inclusive": 0,
+                    "upper_inclusive": 20
+                },
+                "default": 1.5
             },
             "prominence": {
-                "type:string": {},
-                "default": "no-filter"
+                "type:number": {
+                    "lower_inclusive": 0,
+                    "upper_inclusive": 50
+                },
+                "default": 6
             },
-            "name": {
+            "output_filename": {
                 "type:string": {},
                 "default": "output"
-            }
+            }            
         },
         "outputs": {
-            "RESULTSDATA": {
-                "type:list[file]": {}
+            "output_files": {
+                "type:list[file]": {
+                    "format": [
+                        "tiff"
+                    ]
+                }
             }
         }
     },
     "ui": {
         "inputs": {
-            "prefix": {
-                "index": 1,
-                "label": "Filter files (e.g .png)",
+            "input_files": {
+                "index": 3,
+                "label": "Input Files",
+                "description": "2D time series epidermal cell image stacks",
+                "widget:none": null
+            },            
+            "gaussian_filter_sigma": {
+                "index": 4,
+                "label": "Gaussian Filter Sigma",
+                "description": "Sigma value for the Gaussian Blur",
                 "widget:textbox": {}
             },
-            "name": {
-                "index": 2,
-                "label": "Filename (default output.tif)",
+            "prominence": {
+                "index": 5,
+                "label": "Prominence",
+                "description": "Larger values select less maxima",
                 "widget:textbox": {}
+            },
+            "output_filename": {
+                "index": 2,
+                "label": "Output Filename (default output.tif)",
+                "widget:textbox": {},
+                "description": "name of the output file"
+            }         
+        },
+        "outputs": {
+            "output_files": {
+                "index": 1,
+                "label": "Output Files",
+                "description": "Segmented Image Stack"
             }
         }
-    },
-    "image": "camodules.azurecr.io/stackgen:latest"
+    }
 }

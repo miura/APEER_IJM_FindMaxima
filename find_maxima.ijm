@@ -39,7 +39,7 @@ call("CallLog.shout", "Reading JSON Parameters");
 // Get WFE Json values as global vars
 /*INPUTFILES = runMacro(JSON_READER, "settings.input_files[0]");*/
 INPUTSTACK = runMacro(JSON_READER, "settings.input_files[0]");
-PREFIX = ".tif"//runMacro(JSON_READER, "settings.prefix");
+PREFIX = ".tif";//runMacro(JSON_READER, "settings.prefix");
 STACKNAME = runMacro(JSON_READER, "settings.output_filename");
 WFEOUTPUT = runMacro(JSON_READER, "settings.WFE_output_params_file");
 PARA_PROMINENCE = runMacro(JSON_READER, "settings.prominence");
@@ -50,6 +50,7 @@ PARA_GAUSS_SIGMA = parseFloat( PARA_GAUSS_SIGMA );
 // Getting input file path from WFE input_files
 path_substring = lastIndexOf(INPUTSTACK, "/");
 IMAGEDIR_WFE = substring(INPUTSTACK, 0, path_substring+1);
+call("CallLog.shout", "IMAGEDIR_WFE: " + IMAGEDIR_WFE);
 
 main();
 
@@ -61,9 +62,11 @@ function main() {
 	}
 
  	importData();
+ 	call("CallLog.shout", "... image opened");
 	// Parameters
 	GaussianBlurRad = PARA_GAUSS_SIGMA;//1.5;	// Gaussian filter radius
-	NoiseTol = PARA_PROMINENCE;//7.0;		
+	NoiseTol = PARA_PROMINENCE;//7.0;
+	call("CallLog.shout", "start Processing");		
 	run("Set Scale...", "distance=0 known=0 pixel=1 unit=pixel global");
 	run("Set Measurements...", "  mean centroid median redirect=None decimal=2");
 	InitialStackID = getImageID();

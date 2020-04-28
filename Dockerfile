@@ -4,8 +4,8 @@
 # modified: Kota Miura
 
 # Pull base CZSIP/Fiji.
-# FROM czsip/fiji_linux64_baseimage:latest
-FROM czsip/fiji
+FROM czsip/fiji_linux64_baseimage:latest
+#FROM czsip/fiji
 
 #Fix from 
 RUN echo "deb [check-valid-until=no] http://cdn-fastly.deb.debian.org/debian jessie main" > /etc/apt/sources.list.d/jessie.list

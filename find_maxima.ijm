@@ -7,20 +7,29 @@
 // General global vars
 RESULTSPATH = "/output/";
 BATCHMODE = "true";
+VERBOSE = true;
 
 // Read JSON Variables
 call("CallLog.shout", "calllog Trying to read WFE_JSON");
 
 WFE_file = "/params/WFE_input_params.json";
 if (!File.exists(WFE_file)) {
-	call("CallLog.shout", "WFE_input_params.json does not exist... exiting...");
+    call("CallLog.shout", "WFE_JSON loading from Environmental variable...");
+    WFE_JSON = eval("js", "java.lang.System.getenv()['WFE_INPUT_JSON']");    
+    /*call("CallLog.shout", "WFE_input_params.json does not exist... exiting...");*/
+    /*eval("script", "System.exit(0);");*/
+} 
+else {
+    call("CallLog.shout", "WFE_input_params.json found... reading file...");
+    WFE_JSON = File.openAsString(WFE_file);
+}
+
+// sys exit if we cannot load oparameters. 
+if ( WFE_JSON == ""){
+	call("CallLog.shout", "WFE parameters cannot be found... exiting...");
 	eval("script", "System.exit(0);");
-	} 
-	else {
-		call("CallLog.shout", "WFE_input_params.json found... reading file...");
-		WFE_JSON = File.openAsString(WFE_file);
-	}
-	
+}
+
 call("CallLog.shout", "WFE_JSON contents: " + WFE_JSON);
 
 // Read JSON WFE Parameters
@@ -50,7 +59,8 @@ PARA_GAUSS_SIGMA = parseFloat( PARA_GAUSS_SIGMA );
 // Getting input file path from WFE input_files
 path_substring = lastIndexOf(INPUTSTACK, "/");
 IMAGEDIR_WFE = substring(INPUTSTACK, 0, path_substring+1);
-call("CallLog.shout", "IMAGEDIR_WFE: " + IMAGEDIR_WFE);
+if (VERBOSE) call("CallLog.shout", "IMAGE: " + INPUTSTACK);
+if (VERBOSE) call("CallLog.shout", "IMAGEDIR_WFE: " + IMAGEDIR_WFE);
 
 main();
 

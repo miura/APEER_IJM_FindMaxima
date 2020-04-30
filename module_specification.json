@@ -2,11 +2,7 @@
     "spec": {
         "inputs": {
             "input_files": {
-                "type:list[file]": {
-                    "format": [
-                        "tiff"
-                    ]
-                }
+                "type:list[file]": {}
             },
             "gaussian_filter_sigma": {
                 "type:number": {
@@ -25,11 +21,15 @@
             "output_filename": {
                 "type:string": {},
                 "default": "output"
-            }            
+            }
         },
         "outputs": {
-            "output_files": {
-                "type:file": {}
+            "segmented_stack": {
+                "type:file": {
+                    "format": [
+                        "tiff"
+                    ]
+                }
             }
         }
     },
@@ -40,7 +40,7 @@
                 "label": "Input Files",
                 "description": "2D time series epidermal cell image stacks",
                 "widget:none": null
-            },            
+            },
             "gaussian_filter_sigma": {
                 "index": 4,
                 "label": "Gaussian Filter Sigma",
@@ -58,13 +58,12 @@
                 "label": "Output Filename (default output.tif)",
                 "widget:textbox": {},
                 "description": "name of the output file"
-            }         
+            }
         },
         "outputs": {
-            "output_files": {
+            "segmented_stack": {
                 "index": 1,
-                "label": "Output Files",
-                "description": "Segmented Image Stack"
+                "label": "Segmented Stack"
             }
         }
     }

@@ -29,11 +29,7 @@
         },
         "outputs": {
             "output_files": {
-                "type:list[file]": {
-                    "format": [
-                        "tiff"
-                    ]
-                }
+                "type:file": {}
             }
         }
     },

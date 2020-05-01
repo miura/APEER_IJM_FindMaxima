@@ -70,5 +70,6 @@
             }
         },
         "outputs": {}
-    }
+    },
+    "image": "camodules.azurecr.io/stackgen:latest"
 }

@@ -4,6 +4,10 @@
             "input_files": {
                 "type:list[file]": {}
             },
+            "prefix": {
+                "type:string": {},
+                "default": "Tiff"
+            },            
             "gaussian_filter_sigma": {
                 "type:number": {
                     "lower_inclusive": 0,
@@ -20,7 +24,7 @@
             },
             "output_filename": {
                 "type:string": {},
-                "default": "output"
+                "default": "findmaxima_segmented"
             }
         },
         "outputs": {
@@ -36,35 +40,35 @@
     "ui": {
         "inputs": {
             "input_files": {
-                "index": 3,
+                "index": 0,
                 "label": "Input Files",
                 "description": "2D time series epidermal cell image stacks",
                 "widget:none": null
             },
+            "prefix": {
+                "index": 1,
+                "label": "Filter files (e.g .tif)",
+                "widget:textbox": {}
+            },            
             "gaussian_filter_sigma": {
-                "index": 4,
+                "index": 2,
                 "label": "Gaussian Filter Sigma",
                 "description": "Sigma value for the Gaussian Blur",
                 "widget:textbox": {}
             },
             "prominence": {
-                "index": 5,
+                "index": 3,
                 "label": "Prominence",
                 "description": "Larger values select less maxima",
                 "widget:textbox": {}
             },
             "output_filename": {
-                "index": 2,
+                "index": 4,
                 "label": "Output Filename (default output.tif)",
                 "widget:textbox": {},
                 "description": "name of the output file"
             }
         },
-        "outputs": {
-            "segmented_stack": {
-                "index": 1,
-                "label": "Segmented Stack"
-            }
-        }
+        "outputs": {}
     }
 }

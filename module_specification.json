@@ -28,12 +28,8 @@
             }
         },
         "outputs": {
-            "segmented_stack": {
-                "type:file": {
-                    "format": [
-                        "tiff"
-                    ]
-                }
+            "RESULTSDATA": {
+                "type:list[file]": {}
             }
         }
     },
@@ -64,9 +60,9 @@
             },
             "output_filename": {
                 "index": 4,
-                "label": "Output Filename (default output.tif)",
-                "widget:textbox": {},
-                "description": "name of the output file"
+                "label": "Output Filename (default findmaxima_segmented.tif)",
+                "description": "name of the output file",
+                "widget:textbox": {}
             }
         },
         "outputs": {}

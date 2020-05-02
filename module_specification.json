@@ -28,8 +28,8 @@
             }
         },
         "outputs": {
-            "RESULTSDATA": {
-                "type:list[file]": {}
+            "segmented_image": {
+                "type:file": {}
             }
         }
     },

@@ -111,7 +111,7 @@ function main() {
 	close();
 	
  	savingStack();
- 	jsonOut();
+ 	jsonOutV2();
 
 	call("CallLog.shout", "DONE! " + currentTime());
 	run("Close All");
@@ -163,6 +163,28 @@ function jsonOut() {
 		print(jsonout,"\t\"/output/"+ STACKNAME + ".tif\"");
 	}
 	print(jsonout,"\t]");
+	print(jsonout,"}");
+	File.close(jsonout);
+	File.rename(RESULTSPATH + "json_out.txt", RESULTSPATH + WFEOUTPUT);
+	
+	call("CallLog.shout", "Done with JSON Output");
+}
+
+// Generate output.json for WFE
+// without square brackets
+function jsonOutV2() {
+	call("CallLog.shout", "Starting JSON Output");
+	jsonout = File.open(RESULTSPATH + "json_out.txt");
+	call("CallLog.shout", "File open: JSON Output");
+	
+	print(jsonout,"{");
+	//print(jsonout,"\"RESULTSDATA\": ");
+
+	if (STACKNAME=="output") {
+		print(jsonout,"\"RESULTSDATA\": " +" \"/output/output.tif\"");
+	} else {
+		print(jsonout,"\"RESULTSDATA\": " +" \"/output/"+ STACKNAME + ".tif\"");
+	}
 	print(jsonout,"}");
 	File.close(jsonout);
 	File.rename(RESULTSPATH + "json_out.txt", RESULTSPATH + WFEOUTPUT);

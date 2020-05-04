@@ -28,7 +28,7 @@
             }
         },
         "outputs": {
-            "segmented_image": {
+            "RESULTSDATA": {
                 "type:file": {}
             }
         }

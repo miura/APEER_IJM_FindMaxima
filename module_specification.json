@@ -28,7 +28,7 @@
             }
         },
         "outputs": {
-            "RESULTSDATA": {
+            "RESULTSDATA1": {
                 "type:file": {}
             }
         }
@@ -65,7 +65,13 @@
                 "widget:textbox": {}
             }
         },
-        "outputs": {}
+        "outputs": {
+          "RESULTSDATA1": {
+            "label": "Segmented Image Stack",
+            "index": 1,
+            "description": "Saved segmented stack as Tiff file"
+          }
+        }
     },
     "image": "camodules.azurecr.io/stackgen:latest"
 }

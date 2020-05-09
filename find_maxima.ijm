@@ -8,21 +8,10 @@
 RESULTSPATH = "/output/";
 BATCHMODE = "true";
 VERBOSE = true;
+libmacro = "/apeerlib.ijm";
 
 // Read JSON Variables
-call("CallLog.shout", "calllog Trying to read WFE_JSON");
-
-WFE_file = "/params/WFE_input_params.json";
-if (!File.exists(WFE_file)) {
-    call("CallLog.shout", "WFE_JSON loading from Environmental variable...");
-    WFE_JSON = eval("js", "java.lang.System.getenv()['WFE_INPUT_JSON']");    
-    /*call("CallLog.shout", "WFE_input_params.json does not exist... exiting...");*/
-    /*eval("script", "System.exit(0);");*/
-} 
-else {
-    call("CallLog.shout", "WFE_input_params.json found... reading file...");
-    WFE_JSON = File.openAsString(WFE_file);
-}
+WFE_JSON = runMacro( libmacro , "captureWFE_JSON");
 
 // sys exit if we cannot load oparameters. 
 if ( WFE_JSON == ""){
@@ -30,18 +19,9 @@ if ( WFE_JSON == ""){
 	eval("script", "System.exit(0);");
 }
 
-call("CallLog.shout", "WFE_JSON contents: " + WFE_JSON);
-
 // Read JSON WFE Parameters
 JSON_READER = "/JSON_Read.js";
-
-if (!File.exists(JSON_READER)) {
-	call("CallLog.shout", "JSON_Read.js does not exist... exiting...");
-	eval("script", "System.exit(0);");
-	} 
-	else {
-		call("CallLog.shout", "JSON_Read.js found... reading file...");
-	}
+runMacro( libmacro , "checkJSON_ReadExists;" + JSON_READER);
 
 call("CallLog.shout", "Reading JSON Parameters");
 
@@ -65,7 +45,8 @@ if (VERBOSE) call("CallLog.shout", "IMAGEDIR_WFE: " + IMAGEDIR_WFE);
 main();
 
 function main() {
-	call("CallLog.shout", "Starting opening files, time: " + currentTime());
+	tt = runMacro( libmacro , "currentTime");
+	call("CallLog.shout", "Starting opening files, time: " + tt);
 	
 	if (BATCHMODE=="true") {
 		setBatchMode(true);
@@ -111,12 +92,19 @@ function main() {
 	close();
 	
  	savingStack();
- 	jsonOutV2();
+ 	//jsonOutV2();
+ 	filelist = STACKNAME + ".tif"; //used for JSON out
+ 	jsonarg = "JSON_OUT;" + RESULTSPATH + "," + filelist;
+ 	call("CallLog.shout", "...JSON args:" + jsonarg);
+ 	out = runMacro( libmacro , jsonarg);
+ 	call("CallLog.shout", "... JSON out written: " + out);
+ 	
 
-	call("CallLog.shout", "DONE! " + currentTime());
+	//call("CallLog.shout", "DONE! " + currentTime());
+	tt = runMacro( libmacro , "currentTime");
+	call("CallLog.shout", "Finished processing, time: " + tt);
 	run("Close All");
 	call("CallLog.shout", "Closed");
-	shout("test print");
 	print( "test macro print command" );
 	eval("script", "System.exit(0);");
 }
@@ -147,79 +135,3 @@ function savingStack() {
 	}
 }
 
-// Generate output.json for WFE
-function jsonOut() {
-	call("CallLog.shout", "Starting JSON Output");
-	jsonout = File.open(RESULTSPATH + "json_out.txt");
-	call("CallLog.shout", "File open: JSON Output");
-	
-	print(jsonout,"{");
-	print(jsonout,"\"RESULTSDATA\": [");
-
-	if (STACKNAME=="output") {
-		print(jsonout,"\t\"/output/output.tif\"");
-	}
-	else {
-		print(jsonout,"\t\"/output/"+ STACKNAME + ".tif\"");
-	}
-	print(jsonout,"\t]");
-	print(jsonout,"}");
-	File.close(jsonout);
-	File.rename(RESULTSPATH + "json_out.txt", RESULTSPATH + WFEOUTPUT);
-	
-	call("CallLog.shout", "Done with JSON Output");
-}
-
-// Generate output.json for WFE
-// without square brackets
-function jsonOutV2() {
-	call("CallLog.shout", "Starting JSON Output");
-	jsonout = File.open(RESULTSPATH + "json_out.txt");
-	call("CallLog.shout", "File open: JSON Output");
-	
-	print(jsonout,"{");
-	//print(jsonout,"\"RESULTSDATA\": ");
-
-	if (STACKNAME=="output") {
-		print(jsonout,"\"RESULTSDATA\": " +" \"/output/output.tif\"");
-	} else {
-		print(jsonout,"\"RESULTSDATA\": " +" \"/output/"+ STACKNAME + ".tif\"");
-	}
-	print(jsonout,"}");
-	File.close(jsonout);
-	File.rename(RESULTSPATH + "json_out.txt", RESULTSPATH + WFEOUTPUT);
-	
-	call("CallLog.shout", "Done with JSON Output");
-}
-
-/*
- * functions for support tasks
- */
-// Get SystemTimer
- function currentTime() {
-     MonthNames = newArray("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-     DayNames = newArray("Sun", "Mon","Tue","Wed","Thu","Fri","Sat");
-
-     getDateAndTime(year, month, dayOfWeek, dayOfMonth, hour, minute, second, msec);
-
-     timeString = DayNames[dayOfWeek]+" ";
-
-     if (dayOfMonth<10) {timeString = timeString + "0";}
-     timeString = timeString+dayOfMonth+"-"+MonthNames[month]+"-"+year+" @ ";
-
-     if (hour<10) {timeString = timeString + "0";}
-     timeString = timeString+hour+":";
-
-     if (minute<10) {timeString = timeString + "0";}
-     timeString = timeString+minute+":";
-
-     if (second<10) {timeString = timeString + "0";}
-     timeString = timeString+second;
-
-     return timeString;
-} 
-
-function shout( out ){
-	sc = "java.lang.System.out.println( '" + out + "' )";
-	eval("js", sc);
-} 

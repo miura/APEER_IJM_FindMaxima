@@ -30,7 +30,7 @@ call("CallLog.shout", "Reading JSON Parameters");
 
 // Get WFE Json values as global vars
 /*INPUTFILES = runMacro(JSON_READER, "settings.input_files[0]");*/
-INPUTSTACK = runMacro(JSON_READER, "settings.input_files[0]");
+INPUTSTACK = runMacro(JSON_READER, "settings.input_files");
 PREFIX = ".tif";//runMacro(JSON_READER, "settings.prefix");
 STACKNAME = runMacro(JSON_READER, "settings.output_filename");
 WFEOUTPUT = runMacro(JSON_READER, "settings.WFE_output_params_file");

@@ -2,6 +2,9 @@
   ImageJ macro for segmenting image stack using Find Maxima command 
   using virtual stacks to conserver RAM   so in theory even large number if images files --> stacks should work
   based on example generate_stack.ijm
+  
+  MIT License
+  Copyright (c) 2020 Kota Miura
  */
 
 // General global vars
